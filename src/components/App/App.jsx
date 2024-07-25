@@ -11,7 +11,7 @@ function App() {
     useEffect(() => {
         async function getPhotos() {
             const data = await fetchGallery('cat');
-            setImages(data);
+            setImages(data.results);
         }
 
         getPhotos();
@@ -24,7 +24,7 @@ function App() {
 
   return (
     <div>
-        {images.length && <ImageGallery images = {images}/>}
+        {images.length > 0 && <ImageGallery images = {images}/>}
     </div>
   )
 }
