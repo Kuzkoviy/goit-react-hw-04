@@ -33,6 +33,7 @@ function App() {
    async function handleSearch(newTopic) {
       try {
         setLoading(true);
+        setImages([]);
         const data = await fetchGallery(newTopic);
         setImages(data.results);
       } catch (error) {
@@ -49,8 +50,8 @@ function App() {
   return (
     <div>
         <SearchBar onSearch={handleSearch}/>
-        {images.length > 0 && <ImageGallery images = {images}/>}
         {loading && <Loader/>}
+        {images.length > 0 && <ImageGallery images = {images}/>}
         {error && <ErrorMessage/>}
 
     </div>
