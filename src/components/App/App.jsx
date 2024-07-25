@@ -3,6 +3,7 @@ import {fetchGallery} from '../../unsplash-api'
 import ImageGallery from '../ImageGallery/ImageGallery'
 import Loader from '../Loader/Loader'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
+import SearchBar from "../SearchBar/SearchBar"
 
 
 function App() {
@@ -12,23 +13,34 @@ function App() {
     const [error, setError] = useState(false);
 
 
-    useEffect(() => {
-        async function getPhotos() {
-           try {
-            setLoading(true);
-            const data = await fetchGallery('plane');
-            setImages(data.results);
-           } catch (error) {
-            console.log(error);
-            setError(true);
-           } finally {
-            setLoading(false);
-           }
-          }
+    // useEffect(() => {
+    //     async function getPhotos() {
+    //        try {
+    //         setLoading(true);
+    //         const data = await fetchGallery('plane');
+    //         setImages(data.results);
+    //        } catch (error) {
+    //         console.log(error);
+    //         setError(true);
+    //        } finally {
+    //         setLoading(false);
+    //        }
+    //       }
 
-        getPhotos();
-    }, [])
-
+    //     getPhotos();
+    // }, [])
+    
+   async function handleSearch(newTopic) {
+      try {
+        setLoading(true);
+        const data = await fetchGallery(newTopic);
+        setImages(data.results);
+      } catch (error) {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    }
 
 
 
@@ -36,6 +48,7 @@ function App() {
 
   return (
     <div>
+        <SearchBar onSearch={handleSearch}/>
         {images.length > 0 && <ImageGallery images = {images}/>}
         {loading && <Loader/>}
         {error && <ErrorMessage/>}
