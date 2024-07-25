@@ -1,5 +1,6 @@
 
 import { Formik, Field, Form } from 'formik';
+import css from '../SearchBar/SearchBar.module.css'
 
 
 
@@ -11,9 +12,9 @@ function SearchBar({onSearch}) {
             onSearch(values.topic);
             actions.resetForm();
         }}>
-            <Form>
-                <Field type = 'text' name = 'topic'/>
-                <button type='submit'>Submit</button>
+            <Form className={css.form}>
+                <Field type = 'text' name = 'topic' className={css.input}/>
+                <button type='submit' className={css.button}>Submit</button>
             </Form>
         </Formik>
   )

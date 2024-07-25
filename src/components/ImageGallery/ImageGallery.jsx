@@ -1,4 +1,5 @@
 import ImageCard from "../ImageCard/ImageCard"
+import css from '../ImageGallery/ImageGallery.module.css'
 
 
 function ImageGallery({images}) {
@@ -6,8 +7,8 @@ function ImageGallery({images}) {
 
   console.log(images);
   return (
-    <div>
-      <ul>
+    <div className={css.galleryWrapper}>
+      <ul className={css.galleryList}>
         {images.map((img) => {
           return(
             <li
