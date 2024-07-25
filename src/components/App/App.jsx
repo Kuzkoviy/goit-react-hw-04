@@ -1,19 +1,30 @@
 import { useState, useEffect } from "react"
 import {fetchGallery} from '../../unsplash-api'
 import ImageGallery from '../ImageGallery/ImageGallery'
+import Loader from '../Loader/Loader'
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 
 
 function App() {
 
     const [images, setImages] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
 
     useEffect(() => {
         async function getPhotos() {
-            const data = await fetchGallery('dog');
+           try {
+            setLoading(true);
+            const data = await fetchGallery('plane');
             setImages(data.results);
-            // try catch next will be added
-        }
+           } catch (error) {
+            console.log(error);
+            setError(true);
+           } finally {
+            setLoading(false);
+           }
+          }
 
         getPhotos();
     }, [])
@@ -26,6 +37,9 @@ function App() {
   return (
     <div>
         {images.length > 0 && <ImageGallery images = {images}/>}
+        {loading && <Loader/>}
+        {error && <ErrorMessage/>}
+
     </div>
   )
 }
