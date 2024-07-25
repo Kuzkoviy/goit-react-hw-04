@@ -10,8 +10,9 @@ function App() {
 
     useEffect(() => {
         async function getPhotos() {
-            const data = await fetchGallery('cat');
+            const data = await fetchGallery('dog');
             setImages(data.results);
+            // try catch next will be added
         }
 
         getPhotos();
