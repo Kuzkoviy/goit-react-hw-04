@@ -5,13 +5,13 @@ import ImageGallery from '../ImageGallery/ImageGallery'
 
 function App() {
 
-    const [image, setImage] = useState([]);
+    const [images, setImages] = useState([]);
 
 
     useEffect(() => {
         async function getPhotos() {
             const data = await fetchGallery('cat');
-            setImage(data);
+            setImages(data);
         }
 
         getPhotos();
@@ -24,7 +24,7 @@ function App() {
 
   return (
     <div>
-        <ImageGallery items = {image}/>
+        {images.length && <ImageGallery images = {images}/>}
     </div>
   )
 }

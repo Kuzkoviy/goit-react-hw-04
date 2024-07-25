@@ -1,19 +1,23 @@
+import ImageCard from "../ImageCard/ImageCard"
 
 
+function ImageGallery({images}) {
 
-function ImageGallery() {
 
+  console.log(images);
   return (
     <div>
-        {/* <ul>
-            {items.map(item => {
-                return(
-                    <li
-                    key = {item.id}>
-                    </li>
-                )
-            })}
-        </ul> */}
+      <ul>
+        {images.map((img) => {
+          return(
+            <li
+              key={img.id}
+            >
+              <ImageCard onLink={img.urls} onAlt={img.alt_description} />
+            </li>
+          )
+        })}
+      </ul>
     </div>
   )
 }
