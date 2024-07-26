@@ -24,3 +24,5 @@ function ImageGallery({images}) {
 }
 
 export default ImageGallery
+
+

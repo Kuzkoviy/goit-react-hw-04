@@ -19,20 +19,12 @@ function App() {
 
     
    async function handleSearch(newTopic) {
-      try {
-        setLoading(true);
+        // setLoading(true);
         setImages([]);
         setTopic(newTopic);
-        const data = await fetchGallery(newTopic, currentPage);
-        setImages((prevImages => {
-          return [...prevImages, ...data.results];
-        }));
-      } catch (error) {
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    }
+        // const data = await fetchGallery(newTopic, currentPage);
+        // setImages(data.results);
+   };
 
     function handleLoadMore() {
       setCurrentPage(currentPage + 1);
@@ -44,10 +36,9 @@ function App() {
         setLoading(true);
         setError(false);
         const data = await fetchGallery(topic, currentPage);
-        setImages(data.results);
-        // setImages((prevImages) => {
-        //   return [...prevImages, data.results]
-        // })
+        setImages(prevImages => {
+          return [...prevImages, ...data.results];
+        });
        } catch (error) {
         setError(true);
        } finally {
@@ -56,7 +47,7 @@ function App() {
       }
 
       getImages();
-    }, [topic, currentPage]);
+    }, [currentPage, topic]);
     
 
   return (
