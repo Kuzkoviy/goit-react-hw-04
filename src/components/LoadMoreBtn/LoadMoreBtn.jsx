@@ -1,9 +1,9 @@
 
 
-function LoadMoreBtn() {
+function LoadMoreBtn({onClick}) {
   return (
     <div>
-        <button type="button">Load More</button>
+        <button type="button" onClick={onClick}>Load More</button>
     </div>
   )
 }

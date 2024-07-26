@@ -14,7 +14,7 @@ function ImageGallery({images}) {
             <li
               key={img.id}
             >
-              <ImageCard onLink={img.urls} onAlt={img.alt_description} />
+              <ImageCard onLink={img.urls.small} onAlt={img.alt_description} />
             </li>
           )
         })}
