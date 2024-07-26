@@ -13,13 +13,13 @@ function App() {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
-    const [loadMore, setLoadMore] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [topic, setTopic] = useState('');
-
+    const [totalPages, setTotalPages] = useState(0);
     
    async function handleSearch(newTopic) {
         setImages([]);
+        setCurrentPage(1);
         setTopic(newTopic);
    }
 
@@ -28,10 +28,13 @@ function App() {
     }
 
     useEffect(() => {
+      if(topic === '') return;
+
       async function getImages() {
        try {
         setLoading(true);
         setError(false);
+        setTotalPages(data.total_pages);
         const data = await fetchGallery(topic, currentPage);
         setImages(prevImages => {
           return [...prevImages, ...data.results];
@@ -50,10 +53,11 @@ function App() {
   return (
     <div>
         <SearchBar onSearch={handleSearch}/>
-        {loading && <Loader/>}
-        {images.length > 0 && <ImageGallery images = {images}/>}
-        {error && <ErrorMessage/>}
-        <LoadMoreBtn onClick = {handleLoadMore}/>
+        
+        {images.length > 0 && (<ImageGallery images = {images}/>)}
+        {images.length> 0 && (<LoadMoreBtn onClick = {handleLoadMore}/>)}
+        {error && (<ErrorMessage/>)}
+        {loading && (<Loader/>)}
 
     </div>
   )
