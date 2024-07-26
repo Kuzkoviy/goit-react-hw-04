@@ -14,7 +14,7 @@ function App() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [loadMore, setLoadMore] = useState(false);
-    const [page, setPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
     const [topic, setTopic] = useState('');
 
     
@@ -23,8 +23,10 @@ function App() {
         setLoading(true);
         setImages([]);
         setTopic(newTopic);
-        const data = await fetchGallery(newTopic, page);
-        setImages(data.results);
+        const data = await fetchGallery(newTopic, currentPage);
+        setImages((prevImages => {
+          return [...prevImages, ...data.results];
+        }));
       } catch (error) {
         setError(true);
       } finally {
@@ -33,7 +35,7 @@ function App() {
     }
 
     function handleLoadMore() {
-      setPage(page + 1);
+      setCurrentPage(currentPage + 1);
     }
 
     useEffect(() => {
@@ -41,11 +43,11 @@ function App() {
        try {
         setLoading(true);
         setError(false);
-        const data = await fetchGallery(topic, page);
+        const data = await fetchGallery(topic, currentPage);
         setImages(data.results);
-        setImages((prevImages) => {
-          return [...prevImages, data.results]
-        })
+        // setImages((prevImages) => {
+        //   return [...prevImages, data.results]
+        // })
        } catch (error) {
         setError(true);
        } finally {
@@ -54,7 +56,7 @@ function App() {
       }
 
       getImages();
-    }, [page, topic]);
+    }, [topic, currentPage]);
     
 
   return (
