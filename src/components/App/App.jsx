@@ -34,8 +34,8 @@ function App() {
        try {
         setLoading(true);
         setError(false);
-        setTotalPages(data.total_pages);
         const data = await fetchGallery(topic, currentPage);
+        setTotalPages(data.total_pages);
         setImages(prevImages => {
           return [...prevImages, ...data.results];
         });
@@ -45,7 +45,6 @@ function App() {
         setLoading(false);
        }
       }
-
       getImages();
     }, [currentPage, topic]);
     
@@ -53,11 +52,10 @@ function App() {
   return (
     <div>
         <SearchBar onSearch={handleSearch}/>
-        
+        {error && <ErrorMessage/>}
+        {loading && <Loader/>}
         {images.length > 0 && (<ImageGallery images = {images}/>)}
-        {images.length> 0 && (<LoadMoreBtn onClick = {handleLoadMore}/>)}
-        {error && (<ErrorMessage/>)}
-        {loading && (<Loader/>)}
+        {images.length > 0  && totalPages > currentPage && <LoadMoreBtn onClick = {handleLoadMore}/>}
 
     </div>
   )
