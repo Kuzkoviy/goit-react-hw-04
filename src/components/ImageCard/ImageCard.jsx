@@ -6,7 +6,7 @@ function ImageCard({onLink, onAlt}) {
   return (
     <div>
       <li className={css.listItem}>
-        <img src={onLink} alt={onAlt} />
+        <img src={onLink} alt={onAlt} className={css.img}/>
       </li>
     </div>
   )

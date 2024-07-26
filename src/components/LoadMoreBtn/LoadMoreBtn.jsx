@@ -1,9 +1,9 @@
-
+import css from '../LoadMoreBtn/LoadMoreBtn.module.css'
 
 function LoadMoreBtn({onClick}) {
   return (
-    <div>
-        <button type="button" onClick={onClick}>Load More</button>
+    <div className={css.loadBtnWrap}>
+        <button type="button" onClick={onClick} className={css.loadBtn}>Load More</button>
     </div>
   )
 }

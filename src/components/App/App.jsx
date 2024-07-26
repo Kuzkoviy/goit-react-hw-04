@@ -19,12 +19,9 @@ function App() {
 
     
    async function handleSearch(newTopic) {
-        // setLoading(true);
         setImages([]);
         setTopic(newTopic);
-        // const data = await fetchGallery(newTopic, currentPage);
-        // setImages(data.results);
-   };
+   }
 
     function handleLoadMore() {
       setCurrentPage(currentPage + 1);

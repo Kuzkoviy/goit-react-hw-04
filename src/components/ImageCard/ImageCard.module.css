@@ -1,4 +1,7 @@
-.listItem {
-    height: 480px;
-    border: 1px solid grey;
+
+
+.img {
+    width: 460px;
+    height: 320px;
+    padding: 5px;
 }
