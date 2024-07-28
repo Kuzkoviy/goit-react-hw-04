@@ -5,7 +5,7 @@ import Loader from '../Loader/Loader'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
 import SearchBar from "../SearchBar/SearchBar"
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn"
-
+import toast, {Toaster} from "react-hot-toast"
 
 
 function App() {
@@ -18,6 +18,7 @@ function App() {
     const [totalPages, setTotalPages] = useState(0);
     
    async function handleSearch(newTopic) {
+    if(!newTopic) toast.error('Field cannot be emty', {position: 'top-right'});
         setImages([]);
         setCurrentPage(1);
         setTopic(newTopic);
@@ -39,8 +40,11 @@ function App() {
         setImages(prevImages => {
           return [...prevImages, ...data.results];
         });
+        if(data.total_pages <= currentPage) {
+          toast.error('You ended', {position: 'top-right'});
+        }
        } catch (error) {
-        setError(true);
+        toast.error('Some error happend, please reload the page', {position:'top-right'});
        } finally {
         setLoading(false);
        }
@@ -56,7 +60,7 @@ function App() {
         {loading && <Loader/>}
         {images.length > 0 && (<ImageGallery images = {images}/>)}
         {images.length > 0  && totalPages > currentPage && <LoadMoreBtn onClick = {handleLoadMore}/>}
-
+        <Toaster/>
     </div>
   )
 }
