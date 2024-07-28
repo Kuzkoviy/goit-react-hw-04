@@ -5,3 +5,8 @@
     height: 320px;
     padding: 5px;
 }
+
+.listItem:hover {
+    outline: 5px solid #007bff;
+    cursor: zoom-in;
+}

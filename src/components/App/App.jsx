@@ -17,6 +17,8 @@ function App() {
     const [currentPage, setCurrentPage] = useState(1);
     const [topic, setTopic] = useState('');
     const [totalPages, setTotalPages] = useState(0);
+    const [openModal, setOpenModal] = useState(false);
+    const [modalImage, setModalImage] = useState('');
  
 
     
@@ -44,7 +46,7 @@ function App() {
           return [...prevImages, ...data.results];
         });
         if(data.total_pages <= currentPage) {
-          toast.error('You ended', {position: 'top-right'});
+          toast.error('You reached the end of results', {position: 'top-right'});
         }
        } catch (error) {
         toast.error('Some error happend, please reload the page', {position:'top-right'});
@@ -56,16 +58,19 @@ function App() {
     }, [currentPage, topic]);
     
 
-
+    const toglModal = largeImage => {
+      setModalImage(largeImage);
+      setOpenModal(!openModal);
+    };
 
   return (
     <div>
         <SearchBar onSearch={handleSearch}/>
         {error && <ErrorMessage/>}
         {loading && <Loader/>}
-        {images.length > 0 && (<ImageGallery images = {images}/>)}
+        {images.length > 0 && (<ImageGallery images = {images} onModal ={toglModal}/>)}
         {images.length > 0  && totalPages > currentPage && <LoadMoreBtn onClick = {handleLoadMore}/>}
-        
+        {openModal && <Modal modalImage={modalImage} closeModal={toglModal} />}
         <Toaster/>
     </div>
   )
