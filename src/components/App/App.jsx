@@ -6,6 +6,7 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage'
 import SearchBar from "../SearchBar/SearchBar"
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn"
 import toast, {Toaster} from "react-hot-toast"
+import Modal from '../Modal/Modal'
 
 
 function App() {
@@ -16,6 +17,8 @@ function App() {
     const [currentPage, setCurrentPage] = useState(1);
     const [topic, setTopic] = useState('');
     const [totalPages, setTotalPages] = useState(0);
+ 
+
     
    async function handleSearch(newTopic) {
     if(!newTopic) toast.error('Field cannot be emty', {position: 'top-right'});
@@ -53,6 +56,8 @@ function App() {
     }, [currentPage, topic]);
     
 
+
+
   return (
     <div>
         <SearchBar onSearch={handleSearch}/>
@@ -60,6 +65,7 @@ function App() {
         {loading && <Loader/>}
         {images.length > 0 && (<ImageGallery images = {images}/>)}
         {images.length > 0  && totalPages > currentPage && <LoadMoreBtn onClick = {handleLoadMore}/>}
+        
         <Toaster/>
     </div>
   )

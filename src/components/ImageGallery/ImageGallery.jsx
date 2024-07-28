@@ -11,7 +11,7 @@ function ImageGallery({images}) {
       <ul className={css.galleryList}>
         {images.map((img) => {
           return(
-              <ImageCard key={img.id} onLink={img.urls.small} onAlt={img.alt_description} />
+              <ImageCard key={img.id} onLink={img.urls.small} onAlt={img.alt_description}/>
           )
         })};
       </ul>
