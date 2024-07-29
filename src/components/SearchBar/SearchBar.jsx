@@ -5,6 +5,8 @@ import css from '../SearchBar/SearchBar.module.css'
 
 
 function SearchBar({onSearch}) {
+
+    
   return (
         <Formik 
         initialValues={{topic: ''}}

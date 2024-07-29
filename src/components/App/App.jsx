@@ -23,7 +23,10 @@ function App() {
 
     
    async function handleSearch(newTopic) {
-    if(!newTopic) toast.error('Field cannot be emty', {position: 'top-right'});
+    if(newTopic === '') {
+      toast.error('Field cannot be empty', {position: 'top-right'});
+      return;
+    }
         setImages([]);
         setCurrentPage(1);
         setTopic(newTopic);
@@ -34,7 +37,7 @@ function App() {
     }
 
     useEffect(() => {
-      if(topic === '') return;
+      if(topic.trim() === '') return;
 
       async function getImages() {
        try {
