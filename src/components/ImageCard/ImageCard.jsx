@@ -1,11 +1,11 @@
 import css from '../ImageCard/ImageCard.module.css'
 
 
-function ImageCard({onLink, onAlt, openModal, onFull}) {
+function ImageCard({link, alt, openModal, full}) {
   
   return (
       <li className={css.listItem}>
-        <img src={onLink} alt={onAlt} className={css.img} onClick={() => openModal(onFull)}/>
+        <img src={link} alt={alt} className={css.img} onClick={() => openModal(full)}/>
       </li>
   )
 }

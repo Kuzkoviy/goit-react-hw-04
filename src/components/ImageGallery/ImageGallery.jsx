@@ -12,7 +12,7 @@ function ImageGallery({images, onModal}) {
       <ul className={css.galleryList}>
         {images.map((img) => {
           return(
-              <ImageCard key={img.id} onLink={img.urls.small} onAlt={img.alt_description} onFull = {img.urls.regular} openModal = {onModal}/>
+              <ImageCard key={img.id} link={img.urls.small} alt={img.alt_description} full = {img.urls.regular} openModal = {onModal}/>
           )
         })};
       </ul>
