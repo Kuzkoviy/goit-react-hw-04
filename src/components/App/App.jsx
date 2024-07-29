@@ -23,7 +23,7 @@ function App() {
 
     
    async function handleSearch(newTopic) {
-    if(newTopic === '') {
+    if(newTopic.trim() === '') {
       toast.error('Field cannot be empty', {position: 'top-right'});
       return;
     }
