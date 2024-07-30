@@ -6,7 +6,8 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage'
 import SearchBar from "../SearchBar/SearchBar"
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn"
 import toast, {Toaster} from "react-hot-toast"
-import Modal from '../Modal/Modal'
+import ImageModal from '../ImageModal/ImageModal'
+import Modal from 'react-modal';
 
 
 function App() {
@@ -17,11 +18,12 @@ function App() {
     const [currentPage, setCurrentPage] = useState(1);
     const [topic, setTopic] = useState('');
     const [totalPages, setTotalPages] = useState(0);
-    const [openModal, setOpenModal] = useState(false);
-    const [modalImage, setModalImage] = useState('');
+    const [currentImage, setCurrentImage] = useState('');
+    const [isOpenModal, setIsOpenModal] = useState(false);
  
 
-    
+    Modal.setAppElement('#root');
+
    async function handleSearch(newTopic) {
     if(newTopic.trim() === '') {
       toast.error('Field cannot be empty', {position: 'top-right'});
@@ -61,19 +63,45 @@ function App() {
     }, [currentPage, topic]);
     
 
-    const toglModal = largeImage => {
-      setModalImage(largeImage);
-      setOpenModal(!openModal);
-    };
+    // const handleOpenModal = item => {
+    //   setOpenModal(true);
+    //   setModalImg(item);
+    //   document.body.style.overflow = 'hidden';
+    // };
+  
+    // const openCloseModal = () => {
+    //   setOpenModal(false);
+    //   setModalImg(null);
+    //   document.body.style.overflow = 'auto';
+    // };
+
+
+    const openModal = (thisImage) => {
+    setIsOpenModal(true);
+    setCurrentImage(thisImage);
+  };
+
+  const closeModal = () => {
+    setIsOpenModal(false);
+  };
+    
 
   return (
     <div>
         <SearchBar onSearch={handleSearch}/>
         {error && <ErrorMessage/>}
         {loading && <Loader/>}
-        {images.length > 0 && (<ImageGallery images = {images} onModal ={toglModal}/>)}
+        {images.length > 0 && (<ImageGallery images = {images} onModal ={openModal}/>)}
+        {isOpenModal && (
+        <ImageModal
+          isOpen={isOpenModal}
+          onRequestClose={closeModal}
+          images={images}
+          currentImage={currentImage}
+          preventScroll={true}
+        />
+      )}
         {images.length > 0  && totalPages > currentPage && <LoadMoreBtn onClick = {handleLoadMore}/>}
-        {openModal && <Modal modalImage={modalImage} closeModal={toglModal} />}
         <Toaster/>
     </div>
   )

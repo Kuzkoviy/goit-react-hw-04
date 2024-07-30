@@ -1,25 +1,19 @@
-import ImageCard from "../ImageCard/ImageCard"
-import css from '../ImageGallery/ImageGallery.module.css'
+import ImageCard from '../ImageCard/ImageCard';
+import css from './ImageGallery.module.css';
 
-
-function ImageGallery({images, onModal}) {
-
-
-
-  console.log(images);
+export default function ImageGallery({ images, onModal }) {
   return (
-    <div className={css.galleryWrapper}>
-      <ul className={css.galleryList}>
-        {images.map((img) => {
-          return(
-              <ImageCard key={img.id} link={img.urls.small} alt={img.alt_description} full = {img.urls.regular} openModal = {onModal}/>
-          )
-        })};
-      </ul>
-    </div>
-  )
+    <ul className={css.galleryList}>
+      {images.map((image) => (
+        <li
+          key={image.id}
+          onClick={() => {
+            onModal(image);
+          }}
+        >
+          <ImageCard image={image} />
+        </li>
+      ))}
+    </ul>
+  );
 }
-
-export default ImageGallery
-
-

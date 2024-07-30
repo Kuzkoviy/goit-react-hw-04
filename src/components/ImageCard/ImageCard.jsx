@@ -1,13 +1,13 @@
-import css from '../ImageCard/ImageCard.module.css'
+import css from './ImageCard.module.css';
 
-
-function ImageCard({link, alt, openModal, full}) {
-  
+export default function ImageCard({ image }) {
   return (
-      <li className={css.listItem}>
-        <img src={link} alt={alt} className={css.img} onClick={() => openModal(full)}/>
-      </li>
-  )
+    <div className={css.imgcontainer}>
+      <img
+        src={image.urls.small}
+        alt={image.alt_description}
+        className={css.img}
+      />
+    </div>
+  );
 }
-
-export default ImageCard
